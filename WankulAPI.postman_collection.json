@@ -1,0 +1,252 @@
+{
+	"info": {
+		"_postman_id": "3fb6c428-8ad1-44a6-870a-a6a6f95bd2b6",
+		"name": "WankulAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"pseudo\": \"string\",\r\n  \"email\": \"string\",\r\n  \"password\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"string\",\r\n  \"password\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MyDeck",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ2YWxlbnRpbi5kZW5hdmF1dEBob3RtYWlsLmZyIiwiaWF0IjoxNjg5ODkxNjIyLCJleHAiOjE2OTA0OTY0MjJ9.Gmvh-rAk5-L2cQinc3_Ny_LtCMgbc3ZHCudtEPSVJbmZXJkQqlIWVESCxGoly9ho",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/myDeck/all?pageNo=0&pageSize=20&sortBy=id&sortDir=asc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"myDeck",
+						"all"
+					],
+					"query": [
+						{
+							"key": "pageNo",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "20"
+						},
+						{
+							"key": "sortBy",
+							"value": "id"
+						},
+						{
+							"key": "sortDir",
+							"value": "asc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddToMyDeck",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ2YWxlbnRpbi5kZW5hdmF1dEBob3RtYWlsLmZyIiwiaWF0IjoxNjg5ODkxNjIyLCJleHAiOjE2OTA0OTY0MjJ9.Gmvh-rAk5-L2cQinc3_Ny_LtCMgbc3ZHCudtEPSVJbmZXJkQqlIWVESCxGoly9ho",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/myDeck/add/31",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"myDeck",
+						"add",
+						"31"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AllCard",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/card/all?pageNo=0&pageSize=20&sortBy=id&sortDir=asc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"card",
+						"all"
+					],
+					"query": [
+						{
+							"key": "pageNo",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "20"
+						},
+						{
+							"key": "sortBy",
+							"value": "id"
+						},
+						{
+							"key": "sortDir",
+							"value": "asc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Card",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/card/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"card",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ2YWxlbnRpbi5kZW5hdmF1dEBob3RtYWlsLmZyIiwiaWF0IjoxNjg5ODkxNjIyLCJleHAiOjE2OTA0OTY0MjJ9.Gmvh-rAk5-L2cQinc3_Ny_LtCMgbc3ZHCudtEPSVJbmZXJkQqlIWVESCxGoly9ho",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
