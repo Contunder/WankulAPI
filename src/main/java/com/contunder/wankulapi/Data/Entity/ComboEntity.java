@@ -1,8 +1,10 @@
 package com.contunder.wankulapi.Data.Entity;
 
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
 @Table(name = "Combo")
 public class ComboEntity {
 
@@ -17,4 +19,26 @@ public class ComboEntity {
     private String description;
     private int duree;
 
+    public ComboEntity(long characterNumber, EffectEntity effect, String description, int duree) {
+        this.id = characterNumber;
+        this.effect = effect;
+        this.description = description;
+        this.duree = duree;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public EffectEntity getEffect() {
+        return effect;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getDuree() {
+        return duree;
+    }
 }
