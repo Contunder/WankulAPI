@@ -3,7 +3,6 @@ package com.contunder.wankulapi.Data.Entity;
 import jakarta.persistence.*;
 
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -23,11 +22,11 @@ public class UserEntity {
     private String role;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "deck",
+    @JoinTable(name = "collection",
             joinColumns = @JoinColumn(name = "userId", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "cardNumber", referencedColumnName = "id")
     )
-    private List<CardEntity> deck;
+    private List<CardEntity> collection;
 
     public UserEntity(String pseudo, String email, String password) {
         this.pseudo = pseudo;
@@ -56,11 +55,11 @@ public class UserEntity {
         return role;
     }
 
-    public List<CardEntity> getDeck() {
-        return deck;
+    public List<CardEntity> getCollection() {
+        return collection;
     }
 
-    public void setDeck(List<CardEntity> deck) {
-        this.deck = deck;
+    public void setCollection(List<CardEntity> collection) {
+        this.collection = collection;
     }
 }

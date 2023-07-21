@@ -13,20 +13,20 @@ import static com.contunder.wankulapi.Application.Utils.AppConstants.*;
 import static com.contunder.wankulapi.Application.Utils.AppConstants.DEFAULT_SORT_DIRECTION;
 
 @RestController
-@RequestMapping("/api/myDeck")
-public class DeckController {
+@RequestMapping("/api/collection")
+public class CollectionController {
 
     private DeckService deckService;
     private JwtAuthenticationFilter jwtAuthenticationFilter;
     private JwtTokenProvider jwtTokenProvider;
 
-    public DeckController(DeckService deckService, JwtAuthenticationFilter jwtAuthenticationFilter, JwtTokenProvider jwtTokenProvider) {
+    public CollectionController(DeckService deckService, JwtAuthenticationFilter jwtAuthenticationFilter, JwtTokenProvider jwtTokenProvider) {
         this.deckService = deckService;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    @GetMapping("/all")
+    @GetMapping("/")
     public ResponseEntity<CardResponse> getAllResources(
             @RequestParam(value = "pageNo", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = DEFAULT_PAGE_SIZE, required = false) int pageSize,
