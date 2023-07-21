@@ -16,7 +16,8 @@ public class EffectEntity {
     private int power;
     private boolean term;
 
-    public EffectEntity(String description, int pick, int discard, int power, boolean term) {
+    public EffectEntity(long characterNumber, String description, int pick, int discard, int power, boolean term) {
+        this.id = characterNumber;
         this.description = description;
         this.pick = pick;
         this.discard = discard;

@@ -11,7 +11,7 @@ public class Character {
     private Effect effect;
     private Combo combo;
     private String description;
-    private Map<String, String> jewels;
+    private Jewel jewels;
 
 
 }

@@ -8,12 +8,13 @@ public class JewelEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     private String yellowPosition;
     private String purplePosition;
 
-    public JewelEntity(String yellowPosition, String purplePosition) {
+    public JewelEntity(int characterNumber, String yellowPosition, String purplePosition) {
+        this.id = characterNumber;
         this.yellowPosition = yellowPosition;
         this.purplePosition = purplePosition;
     }

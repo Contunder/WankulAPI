@@ -12,9 +12,10 @@ import static com.contunder.wankulapi.Application.Enum.JewelEnum.YELLOW;
 
 public class JewelMapper {
 
-    public JewelEntity mapModelToData(Jewel jewel){
+    public JewelEntity mapModelToData(Jewel jewel, int characterNumber){
 
         return new JewelEntity(
+                characterNumber,
                 jewel.getJewel().get(YELLOW.getName()).getPosition(),
                 jewel.getJewel().get(PURPLE.getName()).getPosition()
         );

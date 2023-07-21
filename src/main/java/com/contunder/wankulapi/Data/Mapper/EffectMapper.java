@@ -5,9 +5,10 @@ import com.contunder.wankulapi.Data.Entity.EffectEntity;
 
 public class EffectMapper {
 
-    public EffectEntity mapModelToData(Effect effect){
+    public EffectEntity mapModelToData(Effect effect, int characterNumber){
 
         return new EffectEntity(
+                characterNumber,
                 effect.getDescription(),
                 effect.getPick(),
                 effect.getDiscard(),
