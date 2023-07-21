@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.Optional;
 
 @Component
 public class JwtTokenProvider {
@@ -42,13 +43,13 @@ public class JwtTokenProvider {
         );
     }
 
-    public String getUsername(String token){
+    public Optional<String> getEmail(String token){
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-        return claims.getSubject();
+        return Optional.ofNullable(claims.getSubject());
     }
 
     public boolean validateToken(String token){

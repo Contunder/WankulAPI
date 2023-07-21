@@ -1,12 +1,12 @@
 package com.contunder.wankulapi.Application.Controller;
 
-import com.contunder.wankulapi.Application.Model.Card;
 import com.contunder.wankulapi.Application.Security.JwtAuthenticationFilter;
 import com.contunder.wankulapi.Application.Security.JwtTokenProvider;
 import com.contunder.wankulapi.Application.Service.DeckService;
 import com.contunder.wankulapi.Data.Payload.CardResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import static com.contunder.wankulapi.Application.Utils.AppConstants.*;
@@ -35,7 +35,9 @@ public class DeckController {
             HttpServletRequest request
     ){
         String token = jwtAuthenticationFilter.getTokenFromRequest(request);
-        String email = jwtTokenProvider.getUsername(token);
+        String email = jwtTokenProvider.getEmail(token).orElseThrow(() ->
+                new UsernameNotFoundException("User not found with email: "));
+
 
         return ResponseEntity.ok(deckService.getAllMyCard(pageNo, pageSize, sortBy, sortDir, email));
     }
@@ -43,7 +45,8 @@ public class DeckController {
     @PostMapping("/add/{cardNumber}")
     public ResponseEntity<String> getActivityByResource(@PathVariable(value = "cardNumber") int cardNumber, HttpServletRequest request) {
         String token = jwtAuthenticationFilter.getTokenFromRequest(request);
-        String email = jwtTokenProvider.getUsername(token);
+        String email = jwtTokenProvider.getEmail(token).orElseThrow(() ->
+                new UsernameNotFoundException("User not found with email: "));
 
         return ResponseEntity.ok(deckService.addCardByCardNumber(cardNumber, email));
     }
