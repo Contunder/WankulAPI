@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.Set;
 
+import static com.contunder.wankulapi.Application.Enum.MessageConstant.USER_NOT_FOUND;
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
@@ -25,7 +27,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
           UserEntity user = userRepository.findByEmail(userEmail)
                  .orElseThrow(() ->
-                         new UsernameNotFoundException("User not found with email: "+ userEmail));
+                         new UsernameNotFoundException(USER_NOT_FOUND));
 
         Set<GrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority(user.getRole()));
 

@@ -16,6 +16,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+import static com.contunder.wankulapi.Application.Enum.MessageConstant.USER_NOT_FOUND;
+
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -37,7 +39,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if(StringUtils.hasText(token) && jwtTokenProvider.validateToken(token)){
 
             String email = jwtTokenProvider.getEmail(token).orElseThrow(() ->
-                    new UsernameNotFoundException("User not found with email: "));
+                    new UsernameNotFoundException(USER_NOT_FOUND));
             UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(

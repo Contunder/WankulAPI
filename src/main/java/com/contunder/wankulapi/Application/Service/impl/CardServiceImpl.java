@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
+import static com.contunder.wankulapi.Application.Enum.MessageConstant.CARD_NOT_FOUND;
+
 @Service
 public class CardServiceImpl implements CardService {
 
@@ -43,12 +45,12 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public Card getCardById(int id){
+    public Card getCardById(int cardNumber){
 
         return cardMapper.mapDataToModel(
-                cardRepository.findById(id)
+                cardRepository.findById(cardNumber)
                         .orElseThrow(() ->
-                            new UsernameNotFoundException("Card not found with number: "+ id)
+                            new UsernameNotFoundException(CARD_NOT_FOUND + cardNumber)
                         )
         );
     }
