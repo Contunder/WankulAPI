@@ -31,4 +31,46 @@ public class CharacterEntity {
 
     private String description;
 
+    public CharacterEntity(CardEntity card, int costs, int power, ComboEntity combo, EffectEntity effect, JewelEntity jewel, String description) {
+        this.id = card.getId();
+        this.card = card;
+        this.costs = costs;
+        this.power = power;
+        this.combo = combo;
+        this.effect = effect;
+        this.jewel = jewel;
+        this.description = description;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public CardEntity getCard() {
+        return card;
+    }
+
+    public int getCosts() {
+        return costs;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public ComboEntity getCombo() {
+        return combo;
+    }
+
+    public EffectEntity getEffect() {
+        return effect;
+    }
+
+    public JewelEntity getJewel() {
+        return jewel;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

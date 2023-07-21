@@ -15,7 +15,7 @@ public class ComboMapper {
 
         return new ComboEntity(
                 characterNumber,
-                effectMapper.mapModelToData(combo.getEffet(), characterNumber),
+                effectMapper.mapModelToData(characterNumber, combo.getEffet()),
                 combo.getDescription(),
                 combo.getDuree()
         );
