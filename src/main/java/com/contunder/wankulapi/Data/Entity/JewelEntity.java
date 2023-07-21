@@ -10,8 +10,19 @@ public class JewelEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private boolean yellow;
-    private boolean purple;
-    private boolean positionLeft;
-    private boolean positionRight;
+    private String yellowPosition;
+    private String purplePosition;
+
+    public JewelEntity(String yellowPosition, String purplePosition) {
+        this.yellowPosition = yellowPosition;
+        this.purplePosition = purplePosition;
+    }
+
+    public String getYellowPosition() {
+        return yellowPosition;
+    }
+
+    public String getPurplePosition() {
+        return purplePosition;
+    }
 }
