@@ -1,8 +1,10 @@
 package com.contunder.wankulapi.Data.Entity;
 
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
 @Table(name = "Effect")
 public class EffectEntity {
 
