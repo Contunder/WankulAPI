@@ -1,4 +1,4 @@
-name: Push on Master
+name: Push on Feature
 
 on:
   push:
