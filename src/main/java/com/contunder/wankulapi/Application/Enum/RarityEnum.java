@@ -8,8 +8,8 @@ public enum RarityEnum {
     RARE("Rare"),
     ULTRA_RARE_HOLO_1("Ultra Rare Holo 1"),
     ULTRA_RARE_HOLO_2("Ultra Rare Holo 2"),
-    LEGENDAIRE_BRONZE("Légendaire Bronze"),
-    LEGENDAIRE_ARGENT("Légendaire Argent"),
+    LEGENDAIRE_BRONZE("Legendaire Bronze"),
+    LEGENDAIRE_ARGENT("Legendaire Argent"),
     LEGENDAIRE_OR("Légendaire Or");
 
     private String rarity;
