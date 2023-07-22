@@ -20,9 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.contunder.wankulapi.Application.Enum.MessageConstant.CARD_NOT_FOUND;
-import static com.contunder.wankulapi.Application.Enum.MessageConstant.COLLECTION_ADD;
-import static com.contunder.wankulapi.Application.Enum.MessageConstant.USER_NOT_FOUND;
+import static com.contunder.wankulapi.Application.Enum.MessageConstant.*;
 
 @Service
 public class CollectionServiceImpl implements CollectionService {
@@ -67,6 +65,20 @@ public class CollectionServiceImpl implements CollectionService {
         userRepository.save(user);
 
         return "La carte " + card.getEffigy() + " " + card.getName() + COLLECTION_ADD;
+    }
+
+    @Override
+    public String deleteCardByCardNumber(int cardNumber, String email) {
+        UserEntity user = userService.getUserEntity(email);
+        CardEntity card = cardRepository.findById(cardNumber).orElseThrow(() ->
+                new WankulAPIException(HttpStatus.NOT_FOUND, CARD_NOT_FOUND + cardNumber));
+
+        List<CardEntity> cardEntities = user.getCollection();
+        cardEntities.remove(card);
+        user.setCollection(cardEntities);
+        userRepository.save(user);
+
+        return "La carte " + card.getEffigy() + " " + card.getName() + COLLECTION_DELETE;
     }
 
 }

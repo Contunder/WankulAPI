@@ -11,4 +11,6 @@ public interface CollectionService {
     CardResponse getCollectionByPseudo(Pageable pageable, String pseudo);
 
     String addCardByCardNumber(int cardNumber, String email);
+
+    String deleteCardByCardNumber(int cardNumber, String email);
 }

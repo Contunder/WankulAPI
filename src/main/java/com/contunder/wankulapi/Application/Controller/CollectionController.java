@@ -36,7 +36,7 @@ public class CollectionController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<CardResponse> getAllResources(
+    public ResponseEntity<CardResponse> getMyCollection(
             @RequestParam(value = "pageNo", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = DEFAULT_PAGE_SIZE, required = false) int pageSize,
             @RequestParam(value = "sortBy", defaultValue = DEFAULT_SORT_BY, required = false) String sortBy,
@@ -48,7 +48,7 @@ public class CollectionController {
     }
 
     @GetMapping("/{pseudo}")
-    public ResponseEntity<CardResponse> getAllResources(
+    public ResponseEntity<CardResponse> getUserCollection(
             @RequestParam(value = "pageNo", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = DEFAULT_PAGE_SIZE, required = false) int pageSize,
             @RequestParam(value = "sortBy", defaultValue = DEFAULT_SORT_BY, required = false) String sortBy,
@@ -60,9 +60,15 @@ public class CollectionController {
     }
 
     @PostMapping("/add/{cardNumber}")
-    public ResponseEntity<String> getActivityByResource(@PathVariable(value = "cardNumber") int cardNumber, HttpServletRequest request) {
+    public ResponseEntity<String> addCardToCollection(@PathVariable(value = "cardNumber") int cardNumber, HttpServletRequest request) {
 
         return ResponseEntity.ok(deckService.addCardByCardNumber(cardNumber, getEmail(request)));
+    }
+
+    @PostMapping("/delete/{cardNumber}")
+    public ResponseEntity<String> deleteCardToCollection(@PathVariable(value = "cardNumber") int cardNumber, HttpServletRequest request) {
+
+        return ResponseEntity.ok(deckService.deleteCardByCardNumber(cardNumber, getEmail(request)));
     }
 
     private String getEmail(HttpServletRequest request){
