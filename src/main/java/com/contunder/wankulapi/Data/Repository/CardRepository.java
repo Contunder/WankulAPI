@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface CardRepository extends JpaRepository<CardEntity, Integer> {
 
     Optional<CardEntity> findById(int id);
-    Optional<Page<CardEntity>> findByRarity(String rarity, Pageable page);
+    Optional<Page<CardEntity>> findAllByRarityIsContaining(String rarity, Pageable page);
 }
