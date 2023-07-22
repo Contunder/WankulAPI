@@ -3,6 +3,7 @@ package com.contunder.wankulapi.Application.Service.impl;
 import com.contunder.wankulapi.Application.Model.Card;
 import com.contunder.wankulapi.Application.Model.Pageable;
 import com.contunder.wankulapi.Application.Service.CollectionService;
+import com.contunder.wankulapi.Application.Service.UserService;
 import com.contunder.wankulapi.Data.Entity.CardEntity;
 import com.contunder.wankulapi.Data.Entity.UserEntity;
 import com.contunder.wankulapi.Data.Mapper.CardMapper;
@@ -22,22 +23,31 @@ import static com.contunder.wankulapi.Application.Enum.MessageConstant.COLLECTIO
 import static com.contunder.wankulapi.Application.Enum.MessageConstant.USER_NOT_FOUND;
 
 @Service
-@PropertySource("classpath:message.properties")
 public class CollectionServiceImpl implements CollectionService {
 
     private final UserRepository userRepository;
     private final CardRepository cardRepository;
+    private final UserService userService;
     private final CardMapper cardMapper;
 
-    public CollectionServiceImpl(UserRepository userRepository, CardRepository cardRepository) {
+    public CollectionServiceImpl(UserRepository userRepository, CardRepository cardRepository, UserService userService) {
         this.userRepository = userRepository;
         this.cardRepository = cardRepository;
+        this.userService = userService;
         this.cardMapper = new CardMapper();
     }
 
     @Override
     public CardResponse getAllMyCard(Pageable pageable, String email) {
-        UserEntity user = getUserEntity(email);
+        UserEntity user = userService.getUserEntity(email);
+        List<Card> card = user.getCollection().stream().map(cardMapper::mapDataToModel).collect(Collectors.toList());
+
+        return cardMapper.mapModelToResponse(card, new PageImpl<>(user.getCollection(), pageable.getPage(), card.size()));
+    }
+
+    @Override
+    public CardResponse getCollectionByPseudo(Pageable pageable, String pseudo) {
+        UserEntity user = userService.getUserEntityByPseudo(pseudo);
         List<Card> card = user.getCollection().stream().map(cardMapper::mapDataToModel).collect(Collectors.toList());
 
         return cardMapper.mapModelToResponse(card, new PageImpl<>(user.getCollection(), pageable.getPage(), card.size()));
@@ -45,7 +55,7 @@ public class CollectionServiceImpl implements CollectionService {
 
     @Override
     public String addCardByCardNumber(int cardNumber, String email) {
-        UserEntity user = getUserEntity(email);
+        UserEntity user = userService.getUserEntity(email);
         CardEntity card = cardRepository.findById(cardNumber).orElseThrow(() ->
                 new UsernameNotFoundException(CARD_NOT_FOUND + cardNumber));
 
@@ -57,9 +67,4 @@ public class CollectionServiceImpl implements CollectionService {
         return "La carte " + card.getEffigy() + " " + card.getName() + COLLECTION_ADD;
     }
 
-    public UserEntity getUserEntity(String email){
-
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND));
-    }
 }
