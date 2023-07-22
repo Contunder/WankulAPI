@@ -47,6 +47,18 @@ public class CollectionController {
         return ResponseEntity.ok(deckService.getAllMyCard(new Pageable(pageNo, pageSize, sortBy, sortDir), getEmail(request)));
     }
 
+    @GetMapping("/{pseudo}")
+    public ResponseEntity<CardResponse> getAllResources(
+            @RequestParam(value = "pageNo", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = DEFAULT_PAGE_SIZE, required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = DEFAULT_SORT_BY, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = DEFAULT_SORT_DIRECTION, required = false) String sortDir,
+            @PathVariable(value = "pseudo") String pseudo
+    ){
+
+        return ResponseEntity.ok(deckService.getCollectionByPseudo(new Pageable(pageNo, pageSize, sortBy, sortDir), pseudo));
+    }
+
     @PostMapping("/add/{cardNumber}")
     public ResponseEntity<String> getActivityByResource(@PathVariable(value = "cardNumber") int cardNumber, HttpServletRequest request) {
 

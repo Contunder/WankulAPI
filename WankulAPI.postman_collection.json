@@ -1,12 +1,12 @@
 {
 	"info": {
-		"_postman_id": "3fb6c428-8ad1-44a6-870a-a6a6f95bd2b6",
-		"name": "WankulAPI",
+		"_postman_id": "9c452d9e-5e08-4737-9df3-28869ab8ae4d",
+		"name": "WankulAPI Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "register",
+			"name": "S'enregistrer",
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -39,7 +39,7 @@
 			"response": []
 		},
 		{
-			"name": "login",
+			"name": "Se connecter",
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -72,7 +72,105 @@
 			"response": []
 		},
 		{
-			"name": "MyDeck",
+			"name": "Toute les cartes",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/card/all?pageNo=0&pageSize=20&sortBy=id&sortDir=asc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"card",
+						"all"
+					],
+					"query": [
+						{
+							"key": "pageNo",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "20"
+						},
+						{
+							"key": "sortBy",
+							"value": "id"
+						},
+						{
+							"key": "sortDir",
+							"value": "asc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Une seul carte",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/card/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"card",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ajouter à une Collection",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ2YWxlbnRpbi5kZW5hdmF1dEBob3RtYWlsLmZyIiwiaWF0IjoxNjg5ODkxNjIyLCJleHAiOjE2OTA0OTY0MjJ9.Gmvh-rAk5-L2cQinc3_Ny_LtCMgbc3ZHCudtEPSVJbmZXJkQqlIWVESCxGoly9ho",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/myDeck/add/31",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"myDeck",
+						"add",
+						"31"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Voir ma Collection",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -121,47 +219,12 @@
 			"response": []
 		},
 		{
-			"name": "AddToMyDeck",
+			"name": "Voir une Collection Par Pseudo",
 			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ2YWxlbnRpbi5kZW5hdmF1dEBob3RtYWlsLmZyIiwiaWF0IjoxNjg5ODkxNjIyLCJleHAiOjE2OTA0OTY0MjJ9.Gmvh-rAk5-L2cQinc3_Ny_LtCMgbc3ZHCudtEPSVJbmZXJkQqlIWVESCxGoly9ho",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/api/myDeck/add/31",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"myDeck",
-						"add",
-						"31"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "AllCard",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/card/all?pageNo=0&pageSize=20&sortBy=id&sortDir=asc",
+					"raw": "http://localhost:8080/api/collection/Contunder?pageNo=0&pageSize=20&sortBy=id&sortDir=asc",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -169,8 +232,8 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"card",
-						"all"
+						"collection",
+						"Contunder"
 					],
 					"query": [
 						{
@@ -189,30 +252,6 @@
 							"key": "sortDir",
 							"value": "asc"
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Card",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/api/card/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"card",
-						"1"
 					]
 				}
 			},
