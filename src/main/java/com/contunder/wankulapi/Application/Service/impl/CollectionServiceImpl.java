@@ -11,14 +11,13 @@ import com.contunder.wankulapi.Data.Mapper.CardMapper;
 import com.contunder.wankulapi.Data.Payload.CardResponse;
 import com.contunder.wankulapi.Data.Repository.CardRepository;
 import com.contunder.wankulapi.Data.Repository.UserRepository;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.contunder.wankulapi.Application.Enum.MessageConstant.*;
@@ -45,6 +44,19 @@ public class CollectionServiceImpl implements CollectionService {
                 .map(cardMapper::mapDataToModel)
                 .sorted(Comparator.comparingInt(Card::getCardNumber))
                 .collect(Collectors.toList());
+
+        return cardMapper.mapModelToResponse(card, new PageImpl<>(user.getCollection(), pageable.getPage(), card.size()));
+    }
+
+    @Override
+    public CardResponse getAllMyCardByRarity(Pageable pageable, String email, String rarity) {
+        UserEntity user = userService.getUserEntity(email);
+        List<Card> card = Optional.of(user.getCollection().stream()
+                .filter(cardEntity -> cardEntity.getRarity().toLowerCase().contains(rarity.toLowerCase()))
+                .map(cardMapper::mapDataToModel)
+                .sorted(Comparator.comparingInt(Card::getCardNumber))
+                .collect(Collectors.toList()))
+                .orElseThrow(() -> new WankulAPIException(HttpStatus.NOT_FOUND, CARD_NOT_FOUND));
 
         return cardMapper.mapModelToResponse(card, new PageImpl<>(user.getCollection(), pageable.getPage(), card.size()));
     }

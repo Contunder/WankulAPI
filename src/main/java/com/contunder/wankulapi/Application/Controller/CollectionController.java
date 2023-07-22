@@ -47,6 +47,19 @@ public class CollectionController {
         return ResponseEntity.ok(deckService.getAllMyCard(new Pageable(pageNo, pageSize, sortBy, sortDir), getEmail(request)));
     }
 
+    @GetMapping("/rarity/{rarity}")
+    public ResponseEntity<CardResponse> getAllCardByRarety(
+            @RequestParam(value = "pageNo", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = DEFAULT_PAGE_SIZE, required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = DEFAULT_SORT_BY, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = DEFAULT_SORT_DIRECTION, required = false) String sortDir,
+            @PathVariable(value = "rarity") String rarity,
+            HttpServletRequest request
+    ){
+
+        return ResponseEntity.ok(deckService.getAllMyCardByRarity(new Pageable(pageNo, pageSize, sortBy, sortDir), getEmail(request), rarity));
+    }
+
     @GetMapping("/{pseudo}")
     public ResponseEntity<CardResponse> getUserCollection(
             @RequestParam(value = "pageNo", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
