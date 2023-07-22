@@ -1,5 +1,6 @@
 package com.contunder.wankulapi.Application.Service.impl;
 
+import com.contunder.wankulapi.Application.Exception.WankulAPIException;
 import com.contunder.wankulapi.Application.Model.Card;
 import com.contunder.wankulapi.Application.Service.CardService;
 import com.contunder.wankulapi.Data.Entity.CardEntity;
@@ -10,7 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -50,7 +51,7 @@ public class CardServiceImpl implements CardService {
         return cardMapper.mapDataToModel(
                 cardRepository.findById(cardNumber)
                         .orElseThrow(() ->
-                            new UsernameNotFoundException(CARD_NOT_FOUND + cardNumber)
+                                new WankulAPIException(HttpStatus.NOT_FOUND, CARD_NOT_FOUND + cardNumber)
                         )
         );
     }

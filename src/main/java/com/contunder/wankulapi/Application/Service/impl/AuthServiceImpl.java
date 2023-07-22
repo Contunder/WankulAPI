@@ -15,6 +15,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import static com.contunder.wankulapi.Application.Enum.MessageConstant.USER_ALREADY_EXIST;
+
 @Service
 public class AuthServiceImpl implements AuthService {
 
@@ -43,7 +45,7 @@ public class AuthServiceImpl implements AuthService {
     public String register(User user) {
 
         if (userRepository.existsByEmail(user.getEmail())) {
-            throw new WankulAPIException(HttpStatus.BAD_REQUEST, "Email is already exists!.");
+            throw new WankulAPIException(HttpStatus.BAD_REQUEST, USER_ALREADY_EXIST);
         }
 
         userRepository.save(userMapper.mapModelToData(user));

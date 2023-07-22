@@ -1,5 +1,6 @@
 package com.contunder.wankulapi.Application.Service.impl;
 
+import com.contunder.wankulapi.Application.Exception.WankulAPIException;
 import com.contunder.wankulapi.Application.Model.Card;
 import com.contunder.wankulapi.Application.Model.Pageable;
 import com.contunder.wankulapi.Application.Service.CollectionService;
@@ -12,6 +13,7 @@ import com.contunder.wankulapi.Data.Repository.CardRepository;
 import com.contunder.wankulapi.Data.Repository.UserRepository;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -57,7 +59,7 @@ public class CollectionServiceImpl implements CollectionService {
     public String addCardByCardNumber(int cardNumber, String email) {
         UserEntity user = userService.getUserEntity(email);
         CardEntity card = cardRepository.findById(cardNumber).orElseThrow(() ->
-                new UsernameNotFoundException(CARD_NOT_FOUND + cardNumber));
+                new WankulAPIException(HttpStatus.NOT_FOUND, CARD_NOT_FOUND + cardNumber));
 
         List<CardEntity> cardEntities = user.getCollection();
         cardEntities.add(card);
