@@ -48,7 +48,7 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public CardResponse getAllCardByRarity(Pageable pageable, String rarity){
-        Page<CardEntity> cardPage = cardRepository.findByRarity(rarity, pageable.getPage())
+        Page<CardEntity> cardPage = cardRepository.findAllByRarityIsContaining(rarity, pageable.getPage())
                 .orElseThrow(() -> new WankulAPIException(HttpStatus.NOT_FOUND, CARD_NOT_FOUND));
 
         return cardMapper.mapModelToResponse(
