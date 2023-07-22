@@ -8,6 +8,8 @@ public interface CollectionService {
 
     CardResponse getAllMyCard(Pageable pageable, String email);
 
+    CardResponse getAllMyCardByRarity(Pageable pageable, String email, String rarity);
+
     CardResponse getCollectionByPseudo(Pageable pageable, String pseudo);
 
     String addCardByCardNumber(int cardNumber, String email);

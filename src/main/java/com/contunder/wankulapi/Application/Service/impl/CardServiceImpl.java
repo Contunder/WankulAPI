@@ -13,12 +13,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.contunder.wankulapi.Application.Enum.MessageConstant.CARD_NOT_FOUND;
-import static java.util.Objects.nonNull;
 
 @Service
 public class CardServiceImpl implements CardService {
@@ -43,7 +40,6 @@ public class CardServiceImpl implements CardService {
                         .collect(Collectors.toList()),
                 cardPage
         );
-
     }
 
     @Override
@@ -56,8 +52,6 @@ public class CardServiceImpl implements CardService {
                 .map(cardMapper::mapDataToModel)
                 .collect(Collectors.toList()),
                 cardPage);
-
-
     }
 
     @Override

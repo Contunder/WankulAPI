@@ -80,7 +80,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/card/all?pageNo=0&pageSize=20&sortBy=id&sortDir=asc",
+					"raw": "http://localhost:8080/api/card/?pageNo=0&pageSize=20&sortBy=id&sortDir=asc",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -89,7 +89,47 @@
 					"path": [
 						"api",
 						"card",
-						"all"
+						""
+					],
+					"query": [
+						{
+							"key": "pageNo",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "20"
+						},
+						{
+							"key": "sortBy",
+							"value": "id"
+						},
+						{
+							"key": "sortDir",
+							"value": "asc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Toute les cartes par rareter",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/card/rarity/1?pageNo=0&pageSize=20&sortBy=id&sortDir=asc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"card",
+						"rarity",
+						"1"
 					],
 					"query": [
 						{
@@ -115,14 +155,26 @@
 		},
 		{
 			"name": "Une seul carte",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"auth": {
 					"type": "noauth"
 				},
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"pseudo\": \"string\",\r\n  \"email\": \"string\",\r\n  \"password\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8080/api/card/1",
+					"raw": "http://localhost:8080/api/card/179?pageNo=0&pageSize=20&sortBy=id&sortDir=asc",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -131,7 +183,25 @@
 					"path": [
 						"api",
 						"card",
-						"1"
+						"179"
+					],
+					"query": [
+						{
+							"key": "pageNo",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "20"
+						},
+						{
+							"key": "sortBy",
+							"value": "id"
+						},
+						{
+							"key": "sortDir",
+							"value": "asc"
+						}
 					]
 				}
 			},
@@ -172,20 +242,10 @@
 		{
 			"name": "Voir ma Collection",
 			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ2YWxlbnRpbi5kZW5hdmF1dEBob3RtYWlsLmZyIiwiaWF0IjoxNjg5ODkxNjIyLCJleHAiOjE2OTA0OTY0MjJ9.Gmvh-rAk5-L2cQinc3_Ny_LtCMgbc3ZHCudtEPSVJbmZXJkQqlIWVESCxGoly9ho",
-							"type": "string"
-						}
-					]
-				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/myDeck/all?pageNo=0&pageSize=20&sortBy=id&sortDir=asc",
+					"raw": "http://localhost:8080/api/collection/?pageNo=0&pageSize=20&sortBy=id&sortDir=asc",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -193,8 +253,8 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"myDeck",
-						"all"
+						"collection",
+						""
 					],
 					"query": [
 						{
@@ -224,7 +284,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/collection/Contunder?pageNo=0&pageSize=20&sortBy=id&sortDir=asc",
+					"raw": "http://localhost:8080/api/collection/fontunder?pageNo=0&pageSize=20&sortBy=id&sortDir=asc&pseudo=Contunder",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -233,7 +293,73 @@
 					"path": [
 						"api",
 						"collection",
-						"Contunder"
+						"fontunder"
+					],
+					"query": [
+						{
+							"key": "pageNo",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "20"
+						},
+						{
+							"key": "sortBy",
+							"value": "id"
+						},
+						{
+							"key": "sortDir",
+							"value": "asc"
+						},
+						{
+							"key": "pseudo",
+							"value": "Contunder"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Supprimer une carte de ma collection",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/collection/delete/31",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"collection",
+						"delete",
+						"31"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ma collection par rareter",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/collection/rarity/or?pageNo=0&pageSize=20&sortBy=id&sortDir=asc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"collection",
+						"rarity",
+						"or"
 					],
 					"query": [
 						{
