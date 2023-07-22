@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,7 +41,10 @@ public class CollectionServiceImpl implements CollectionService {
     @Override
     public CardResponse getAllMyCard(Pageable pageable, String email) {
         UserEntity user = userService.getUserEntity(email);
-        List<Card> card = user.getCollection().stream().map(cardMapper::mapDataToModel).collect(Collectors.toList());
+        List<Card> card = user.getCollection().stream()
+                .map(cardMapper::mapDataToModel)
+                .sorted(Comparator.comparingInt(Card::getCardNumber))
+                .collect(Collectors.toList());
 
         return cardMapper.mapModelToResponse(card, new PageImpl<>(user.getCollection(), pageable.getPage(), card.size()));
     }
@@ -48,7 +52,10 @@ public class CollectionServiceImpl implements CollectionService {
     @Override
     public CardResponse getCollectionByPseudo(Pageable pageable, String pseudo) {
         UserEntity user = userService.getUserEntityByPseudo(pseudo);
-        List<Card> card = user.getCollection().stream().map(cardMapper::mapDataToModel).collect(Collectors.toList());
+        List<Card> card = user.getCollection().stream()
+                .map(cardMapper::mapDataToModel)
+                .sorted(Comparator.comparingInt(Card::getCardNumber))
+                .collect(Collectors.toList());
 
         return cardMapper.mapModelToResponse(card, new PageImpl<>(user.getCollection(), pageable.getPage(), card.size()));
     }
