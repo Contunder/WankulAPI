@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
     public UserEntity getUserEntity(String email){
 
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND));
+                .orElseThrow(() -> new WankulAPIException(HttpStatus.NOT_FOUND, USER_NOT_FOUND));
     }
 
     @Override

@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CardResponse {
-    private List<Card> content;
+    private List<Card> cards;
     private int pageNo;
     private int pageSize;
     private long totalElements;
