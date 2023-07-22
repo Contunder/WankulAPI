@@ -1,7 +1,9 @@
 package com.contunder.wankulapi.Application.Security;
 
+import com.contunder.wankulapi.Application.Exception.WankulAPIException;
 import com.contunder.wankulapi.Data.Entity.UserEntity;
 import com.contunder.wankulapi.Data.Repository.UserRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,7 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
           UserEntity user = userRepository.findByEmail(userEmail)
                  .orElseThrow(() ->
-                         new UsernameNotFoundException(USER_NOT_FOUND));
+                         new WankulAPIException(HttpStatus.NOT_FOUND, USER_NOT_FOUND));
 
         Set<GrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority(user.getRole()));
 

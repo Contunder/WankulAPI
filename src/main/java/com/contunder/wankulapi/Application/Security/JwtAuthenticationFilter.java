@@ -1,9 +1,11 @@
 package com.contunder.wankulapi.Application.Security;
 
+import com.contunder.wankulapi.Application.Exception.WankulAPIException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,7 +41,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if(StringUtils.hasText(token) && jwtTokenProvider.validateToken(token)){
 
             String email = jwtTokenProvider.getEmail(token).orElseThrow(() ->
-                    new UsernameNotFoundException(USER_NOT_FOUND));
+                    new WankulAPIException(HttpStatus.NOT_FOUND, USER_NOT_FOUND));
             UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(

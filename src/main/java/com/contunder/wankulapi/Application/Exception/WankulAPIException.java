@@ -16,4 +16,9 @@ public class WankulAPIException extends RuntimeException {
     public String getMessage() {
         return message;
     }
+
+    @Override
+    public Throwable fillInStackTrace() {
+        return this;
+    }
 }
