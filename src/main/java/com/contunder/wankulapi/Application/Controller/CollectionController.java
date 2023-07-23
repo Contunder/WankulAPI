@@ -5,6 +5,7 @@ import com.contunder.wankulapi.Application.Security.JwtAuthenticationFilter;
 import com.contunder.wankulapi.Application.Security.JwtTokenProvider;
 import com.contunder.wankulapi.Application.Service.CollectionService;
 import com.contunder.wankulapi.Data.Payload.CardResponse;
+import com.contunder.wankulapi.Data.Payload.CollectionResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -36,7 +37,7 @@ public class CollectionController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<CardResponse> getMyCollection(
+    public ResponseEntity<CollectionResponse> getMyCollection(
             @RequestParam(value = "pageNo", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = DEFAULT_PAGE_SIZE, required = false) int pageSize,
             @RequestParam(value = "sortBy", defaultValue = DEFAULT_SORT_BY, required = false) String sortBy,
@@ -48,7 +49,7 @@ public class CollectionController {
     }
 
     @GetMapping("/rarity/{rarity}")
-    public ResponseEntity<CardResponse> getAllCardByRarety(
+    public ResponseEntity<CollectionResponse> getAllCardByRarety(
             @RequestParam(value = "pageNo", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = DEFAULT_PAGE_SIZE, required = false) int pageSize,
             @RequestParam(value = "sortBy", defaultValue = DEFAULT_SORT_BY, required = false) String sortBy,
@@ -61,7 +62,7 @@ public class CollectionController {
     }
 
     @GetMapping("/{pseudo}")
-    public ResponseEntity<CardResponse> getUserCollection(
+    public ResponseEntity<CollectionResponse> getUserCollection(
             @RequestParam(value = "pageNo", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = DEFAULT_PAGE_SIZE, required = false) int pageSize,
             @RequestParam(value = "sortBy", defaultValue = DEFAULT_SORT_BY, required = false) String sortBy,

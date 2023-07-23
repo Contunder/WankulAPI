@@ -52,4 +52,5 @@ public class CardEntity {
     public String getEffigy() {
         return effigy;
     }
+
 }
