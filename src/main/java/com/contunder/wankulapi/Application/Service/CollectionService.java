@@ -2,15 +2,16 @@ package com.contunder.wankulapi.Application.Service;
 
 import com.contunder.wankulapi.Application.Model.Pageable;
 import com.contunder.wankulapi.Data.Payload.CardResponse;
+import com.contunder.wankulapi.Data.Payload.CollectionResponse;
 
 
 public interface CollectionService {
 
-    CardResponse getAllMyCard(Pageable pageable, String email);
+    CollectionResponse getAllMyCard(Pageable pageable, String email);
 
-    CardResponse getAllMyCardByRarity(Pageable pageable, String email, String rarity);
+    CollectionResponse getAllMyCardByRarity(Pageable pageable, String email, String rarity);
 
-    CardResponse getCollectionByPseudo(Pageable pageable, String pseudo);
+    CollectionResponse getCollectionByPseudo(Pageable pageable, String pseudo);
 
     String addCardByCardNumber(int cardNumber, String email);
 

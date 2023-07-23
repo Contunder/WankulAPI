@@ -7,15 +7,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class UserMapper {
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     public UserEntity mapModelToData(User user){
 
         return new UserEntity(
                 user.getPseudo(),
                 user.getEmail(),
-                passwordEncoder.encode(user.getPassword())
+                user.getPassword()
         );
     }
 
@@ -24,7 +22,7 @@ public class UserMapper {
         return new User(
                 userEntity.getPseudo(),
                 userEntity.getEmail(),
-                passwordEncoder.encode(userEntity.getPassword())
+                userEntity.getPassword()
         );
     }
 }

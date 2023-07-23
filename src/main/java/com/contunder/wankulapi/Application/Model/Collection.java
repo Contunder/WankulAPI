@@ -1,9 +1,8 @@
 package com.contunder.wankulapi.Application.Model;
 
-
 import com.contunder.wankulapi.Application.Enum.TypeEnum;
 
-public class Card {
+public class Collection {
 
     private int cardNumber;
     private String name;
@@ -11,14 +10,16 @@ public class Card {
     private String rarity;
     private TypeEnum type;
     private String effigy;
+    private int numberOfCard;
 
-    public Card(int cardNumber, String name, String artist, String rarity, TypeEnum type, String effigy) {
+    public Collection(int cardNumber, String name, String artist, String rarity, TypeEnum type, String effigy, int numberOfCard) {
         this.cardNumber = cardNumber;
         this.name = name;
         this.artist = artist;
         this.rarity = rarity;
         this.type = type;
         this.effigy = effigy;
+        this.numberOfCard = numberOfCard;
     }
 
     public int getCardNumber() {
@@ -37,12 +38,15 @@ public class Card {
         return rarity;
     }
 
-    public String getTypeName() {
-        return type.name();
+    public TypeEnum getType() {
+        return type;
     }
 
     public String getEffigy() {
         return effigy;
     }
 
+    public int getNumberOfCard() {
+        return numberOfCard;
+    }
 }

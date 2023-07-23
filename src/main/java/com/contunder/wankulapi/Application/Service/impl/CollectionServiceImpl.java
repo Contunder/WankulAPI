@@ -2,6 +2,7 @@ package com.contunder.wankulapi.Application.Service.impl;
 
 import com.contunder.wankulapi.Application.Exception.WankulAPIException;
 import com.contunder.wankulapi.Application.Model.Card;
+import com.contunder.wankulapi.Application.Model.Collection;
 import com.contunder.wankulapi.Application.Model.Pageable;
 import com.contunder.wankulapi.Application.Service.CollectionService;
 import com.contunder.wankulapi.Application.Service.UserService;
@@ -9,7 +10,9 @@ import com.contunder.wankulapi.Data.Entity.CardEntity;
 import com.contunder.wankulapi.Data.Entity.CollectionEntity;
 import com.contunder.wankulapi.Data.Entity.UserEntity;
 import com.contunder.wankulapi.Data.Mapper.CardMapper;
+import com.contunder.wankulapi.Data.Mapper.CollectionMapper;
 import com.contunder.wankulapi.Data.Payload.CardResponse;
+import com.contunder.wankulapi.Data.Payload.CollectionResponse;
 import com.contunder.wankulapi.Data.Repository.CardRepository;
 import com.contunder.wankulapi.Data.Repository.CollectionRepository;
 import org.springframework.data.domain.PageImpl;
@@ -29,61 +32,60 @@ public class CollectionServiceImpl implements CollectionService {
     private final CollectionRepository collectionRepository;
     private final CardRepository cardRepository;
     private final UserService userService;
+    private final CollectionMapper collectionMapper;
     private final CardMapper cardMapper;
 
     public CollectionServiceImpl(CollectionRepository collectionRepository, CardRepository cardRepository, UserService userService) {
         this.collectionRepository = collectionRepository;
         this.cardRepository = cardRepository;
         this.userService = userService;
+        this.collectionMapper = new CollectionMapper();
         this.cardMapper = new CardMapper();
     }
 
     @Override
-    public CardResponse getAllMyCard(Pageable pageable, String email) {
+    public CollectionResponse getAllMyCard(Pageable pageable, String email) {
         UserEntity user = userService.getUserEntity(email);
         List<CollectionEntity> collection = collectionRepository.getAllByUser(user).orElseThrow(
                 () -> new WankulAPIException(HttpStatus.NOT_FOUND, USER_NOT_FOUND)
         );
-        List<Card> cards = collection.stream()
-                .map(CollectionEntity::getCard)
-                .map(cardMapper::mapDataToModel)
-                .sorted(Comparator.comparingInt(Card::getCardNumber))
+        List<Collection> collections = collection.stream()
+                .map(collectionMapper::mapDataToModel)
+                .sorted(Comparator.comparingInt(Collection::getCardNumber))
                 .collect(Collectors.toList());
 
-        return cardMapper.mapModelToResponse(cards, new PageImpl<>(cards.stream().map(cardMapper::mapModelToData).toList(), pageable.getPage(), cards.size()));
+        return collectionMapper.mapModelToResponse(collections, pageable);
     }
 
     @Override
-    public CardResponse getAllMyCardByRarity(Pageable pageable, String email, String rarity) {
+    public CollectionResponse getAllMyCardByRarity(Pageable pageable, String email, String rarity) {
         UserEntity user = userService.getUserEntity(email);
         List<CollectionEntity> collection = collectionRepository.getAllByUser(user).orElseThrow(
                 () -> new WankulAPIException(HttpStatus.NOT_FOUND, USER_NOT_FOUND)
         );
-        List<Card> card = Optional.of(collection.stream()
-                .map(CollectionEntity::getCard)
-                .filter(cardEntity -> cardEntity.getRarity().toLowerCase().contains(rarity.toLowerCase()))
-                .map(cardMapper::mapDataToModel)
-                .sorted(Comparator.comparingInt(Card::getCardNumber))
+        List<Collection> collections = Optional.of(collection.stream()
+                .filter(collectionEntity -> collectionEntity.getCard().getRarity().toLowerCase().contains(rarity.toLowerCase()))
+                .map(collectionMapper::mapDataToModel)
+                .sorted(Comparator.comparingInt(Collection::getCardNumber))
                 .collect(Collectors.toList()))
                 .orElseThrow(() -> new WankulAPIException(HttpStatus.NOT_FOUND, CARD_NOT_FOUND));
 
 
-        return cardMapper.mapModelToResponse(card, new PageImpl<>(card.stream().map(cardMapper::mapModelToData).toList(), pageable.getPage(), card.size()));
+        return collectionMapper.mapModelToResponse(collections, pageable);
     }
 
     @Override
-    public CardResponse getCollectionByPseudo(Pageable pageable, String pseudo) {
+    public CollectionResponse getCollectionByPseudo(Pageable pageable, String pseudo) {
         UserEntity user = userService.getUserEntityByPseudo(pseudo);
         List<CollectionEntity> collection = collectionRepository.getAllByUser(user).orElseThrow(
                 () -> new WankulAPIException(HttpStatus.NOT_FOUND, USER_NOT_FOUND)
         );
-        List<Card> card = collection.stream()
-                .map(CollectionEntity::getCard)
-                .map(cardMapper::mapDataToModel)
-                .sorted(Comparator.comparingInt(Card::getCardNumber))
+        List<Collection> collections = collection.stream()
+                .map(collectionMapper::mapDataToModel)
+                .sorted(Comparator.comparingInt(Collection::getCardNumber))
                 .collect(Collectors.toList());
 
-        return cardMapper.mapModelToResponse(card, new PageImpl<>(card.stream().map(cardMapper::mapModelToData).toList(), pageable.getPage(), card.size()));
+        return collectionMapper.mapModelToResponse(collections, pageable);
     }
 
     @Override
